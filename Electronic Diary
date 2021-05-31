@@ -5,112 +5,95 @@ import java.time.LocalDateTime;
 
 public class kehitysB {
 	public static void main(String[] args) {
-		
+
 		int treenikerta = 0;
 		int treeniaihe = 0;
 		int lkm = 0;
+		int kokonaissumma = 0;
 		Scanner lukija = new Scanner(System.in);
-        
+
 		System.out.println("Treenipäiväkirjaa täyttäessäsi on käytössäsi seuraavat treeniaihevaihtoehdot:");
 		System.out.println("\t1: TOKO/tottelevaisuus");
 		System.out.println("\t2: Rally-toko");
 		System.out.println("\t3: Agidance");
 		System.out.println();
 		System.out.print("Kuinka monta treenikertaa haluat antaa tällä kertaa: ");
-		
+
 		do {
-		lkm = lukija.nextInt();
+			lkm = lukija.nextInt();
+			lukija.nextLine();
 		} while (lkm <= 0);
-		
+
 		System.out.print("Anna treenin aiheen numero (numerot on lueteltu yllä): ");
-		
+
 		do {
-		treeniaihe = lukija.nextInt();
+			treeniaihe = lukija.nextInt();
+			lukija.nextLine();
 		} while (treeniaihe <= 0 || treeniaihe > 3);
+
+		// Selvitetään treenin aihe ja kysytään uudelleen, kunnes käyttäjä antaa sopivan
+		// luvun.
 		
-			//Selvitetään treenin aihe ja kysytään uudelleen, kunnes käyttäjä antaa sopivan luvun.
-		
-		int[] lukutaulukko = new int[lkm]; //luodaan taulukko treenikerran kestoille
-		
-			
-		treenikerta = kysyTreeniKerta(); //kutsutaan oma metodi kysyTreeniKerta
-		
-		switch (treeniaihe){
-        case 1:
-            System.out.println("TOKO/tottelevaisuus ");
-            break;
-        case 2:
-            System.out.println("Rally-toko ");
-            break;
-        case 3:
-            System.out.println("Agidance ");
-            break;
-        default:
-            System.out.println("Et valinnut treenin aihetta, vai haluatko tehdä jotain muuta?");
+		System.out.println("Treenikerran aika annetaan minuutteina. ");
+
+		int[] lukutaulukko = new int[lkm]; // luodaan taulukko treenikerran kestoille
+
+		for (int i = 0; i < lkm; i++) {
+			treenikerta = kysyTreeniKerta(); // kutsutaan oma metodi kysyTreeniKerta
+			lukutaulukko[i] = treenikerta;
+		} // kysytään kaikille treenikerroille kesto
+
+		switch (treeniaihe) {
+		case 1:
+			System.out.println("TOKO/tottelevaisuus ");
+			break;
+		case 2:
+			System.out.println("Rally-toko ");
+			break;
+		case 3:
+			System.out.println("Agidance ");
+			break;
+		default:
+			System.out.println("Et valinnut treenin aihetta, vai haluatko tehdä jotain muuta?");
 		}
-		
-			
+
 		String[] taulukko = new String[lkm];
-					
-		for (int i = 0; i < taulukko.length; i++) {		
-		System.out.print("Anna " + treenikerta + " minuuttia kestäneen treenin nro." + (i+1) + " sisältö: ");
-		taulukko[i] = lukija.nextLine();
+
+		for (int i = 0; i < taulukko.length; i++) {
+			System.out.print("Anna " + lukutaulukko[i] + " minuuttia kestäneen treenin nro." + (i + 1) + " sisältö: ");
+			taulukko[i] = lukija.nextLine();
 		}
-		
-		//treeninaihe, treenikerran kesto, treenien String selostus
+
+		// treeninaihe, treenikerran kesto, treenien String selostus
 		System.out.println();
-		
-		laskeTreeniKertojenKesto(lukutaulukko); //Treenikertojen summa
-		}
-	
-		private static int kysyTreeniKerta() {
+
+		System.out.print("Kaikkien treenikertojen kesto yhteensä minuutteina: ");
+		kokonaissumma = laskeTreeniKertojenKesto(lukutaulukko); // Treenikertojen summa
+		System.out.print(kokonaissumma);
+	}
+
+	private static int kysyTreeniKerta() {
 		Scanner lukija = new Scanner(System.in);
 		int treenikerta;
-		System.out.print("Treenikerran aika annetaan minuutteina. ");
-		System.out.print("Anna treenikerran kesto: ");
+		System.out.print("Anna treenikerran nro. kesto: ");
 		treenikerta = lukija.nextInt();
+		lukija.nextLine();
 		return treenikerta;
+	}
+	// Oma metodi, joka kysyy treenikerran kestoa ja palauttaa sille annetun arvon.
+
+	private static int laskeTreeniKertojenKesto(int[] taulukko) {
+		int luku = 0;
+		int treenienSumma = 0;
+		for (int i = 0; i < taulukko.length; i++) {
+			luku = taulukko[i];
+			treenienSumma = (treenienSumma + luku);
 		}
-		//Oma metodi, joka kysyy treenikerran kestoa ja palauttaa sille annetun arvon.
-		
-		private static int laskeTreeniKertojenKesto(int[] taulukko) {
-		int treenienSumma;
-		System.out.print("Kaikkien treenikertojen kesto yhteensä minuutteina: ");
-		for (int i = 0; i < taulukko.length; i++) {	
-			treenienSumma = (kysyTreeniKerta() + taulukko[i]);
-			} 
 		return treenienSumma;
-		}
-		//Lasketaan annettujen treenien kestot yhteen.
-		
-		private LocalDateTime dateTime;
-		private String text;
+	}
+	// Lasketaan annettujen treenien kestot yhteen.
 
-		public Entry(LocalDateTime dateTime, String text) {
-		    this.dateTime = dateTime;
-		    this.text = text;
-			}
-
-		public LocalDateTime getDateTime() {
-		    return dateTime;
-			}
-
-		public void setDateTime(LocalDateTime dateTime) {
-		    this.dateTime = dateTime;
-			}
-
-		public String getText() {
-		    return text;
-		    }
-
-		public void setText(String text) {
-		    this.text = text;
-		    }
-
-		@Override
-		public String toString()
-		    {
-		    return dateTime + " " + text;
-		    }
-		
+	private static LocalDateTime dateTime; {
+		this.dateTime = dateTime;    
+	}
 }
