@@ -17,6 +17,8 @@ public class kehitysB {
 		System.out.println("\t2: Rally-toko");
 		System.out.println("\t3: Agidance");
 		System.out.println();
+		
+		//Luetellaan ohjelmassa käytettävissä olevat vaihtoehdot.
 
 		while (true) {
 			System.out.print("Kuinka monta treenikertaa haluat antaa tällä kertaa: ");
@@ -24,19 +26,18 @@ public class kehitysB {
 			lukija.nextLine();
 			if (lkm <= 0) {
 				System.out.println("Virheellinen treenikertojen määrä!");
-				continue; // Selvitetään kuinka monta treenikertaa käyttäjä haluaa syöttää tällä kertaa
+				System.out.println();
+				continue;
 			} else {
 				System.out.print("Anna treenin aiheen numero (numerot on lueteltu yllä): ");
-
-				do {
-					treeniaihe = lukija.nextInt();
-					lukija.nextLine();
-				} while (treeniaihe <= 0 || treeniaihe > 3);
+				treeniaihe = lukija.nextInt();
+				lukija.nextLine();
 			}
 			break;
 		}
-		// Selvitetään treenin aihe ja kysytään uudelleen, kunnes käyttäjä antaa sopivan
-		// luvun.
+		// Selvitetään kuinka monta treenikertaa käyttäjä haluaa syöttää tällä kertaa
+		// ja kysytään uudelleen, kunnes käyttäjä antaa sopivan luvun.
+		// Selvitetään myös treenien aihe.
 
 		System.out.println("Treenikerran aika annetaan minuutteina. ");
 
@@ -68,12 +69,18 @@ public class kehitysB {
 			taulukko[i] = lukija.nextLine();
 		}
 
-		// treeninaihe, treenikerran kesto, treenien String selostus
+		// ohjelma sisältää treeninaihe, treenikerran kesto, treenien String selostus
 		System.out.println();
 
-		System.out.print("Kaikkien treenikertojen kesto yhteensä minuutteina: ");
-		kokonaissumma = laskeTreeniKertojenKesto(lukutaulukko); // Treenikertojen summa
+		System.out.print("Kaikkien treenikertojen kesto yhteensä: ");
+		kokonaissumma = laskeTreeniKertojenKesto(lukutaulukko);
 		System.out.print(kokonaissumma);
+		System.out.println(" min"); // Tulostetaan treenikertojen summa.
+		
+		if (kokonaissumma > 80)
+			System.out.println("Hyvä homma, treenasit ahkerasti!");
+		else
+			System.out.println("Ensi kerralla kannattaa yrittää panostaa enemmän.");
 	}
 
 	private static int kysyTreeniKerta() {
