@@ -1,6 +1,6 @@
 package demo;
 
-import java.util.Scanner;
+import java.util.Scanner; //tuodaan skanneri
 import java.time.LocalDateTime;
 
 public class kehitysB {
@@ -17,23 +17,27 @@ public class kehitysB {
 		System.out.println("\t2: Rally-toko");
 		System.out.println("\t3: Agidance");
 		System.out.println();
-		System.out.print("Kuinka monta treenikertaa haluat antaa tällä kertaa: ");
 
-		do {
+		while (true) {
+			System.out.print("Kuinka monta treenikertaa haluat antaa tällä kertaa: ");
 			lkm = lukija.nextInt();
 			lukija.nextLine();
-		} while (lkm <= 0);
+			if (lkm <= 0) {
+				System.out.println("Virheellinen treenikertojen määrä!");
+				continue; // Selvitetään kuinka monta treenikertaa käyttäjä haluaa syöttää tällä kertaa
+			} else {
+				System.out.print("Anna treenin aiheen numero (numerot on lueteltu yllä): ");
 
-		System.out.print("Anna treenin aiheen numero (numerot on lueteltu yllä): ");
-
-		do {
-			treeniaihe = lukija.nextInt();
-			lukija.nextLine();
-		} while (treeniaihe <= 0 || treeniaihe > 3);
-
+				do {
+					treeniaihe = lukija.nextInt();
+					lukija.nextLine();
+				} while (treeniaihe <= 0 || treeniaihe > 3);
+			}
+			break;
+		}
 		// Selvitetään treenin aihe ja kysytään uudelleen, kunnes käyttäjä antaa sopivan
 		// luvun.
-		
+
 		System.out.println("Treenikerran aika annetaan minuutteina. ");
 
 		int[] lukutaulukko = new int[lkm]; // luodaan taulukko treenikerran kestoille
@@ -75,7 +79,7 @@ public class kehitysB {
 	private static int kysyTreeniKerta() {
 		Scanner lukija = new Scanner(System.in);
 		int treenikerta;
-		System.out.print("Anna treenikerran nro. kesto: ");
+		System.out.print("Anna treenikerran kesto: ");
 		treenikerta = lukija.nextInt();
 		lukija.nextLine();
 		return treenikerta;
@@ -93,7 +97,8 @@ public class kehitysB {
 	}
 	// Lasketaan annettujen treenien kestot yhteen.
 
-	private static LocalDateTime dateTime; {
-		this.dateTime = dateTime;    
+	private static LocalDateTime dateTime;
+	{
+		this.dateTime = dateTime;
 	}
 }
